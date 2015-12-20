@@ -1,3 +1,3 @@
 all:
 	go get ./...
-	go run src/main.go
+	go run main.go
