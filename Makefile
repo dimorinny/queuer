@@ -1,0 +1,3 @@
+all:
+	go get ./...
+	go run src/main.go
