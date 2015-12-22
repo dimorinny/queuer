@@ -76,13 +76,13 @@ func runServer() {
 	authRequired.Get("/queue/my", handlers.MyQueues)
 	authRequired.Get("/queue/:id", handlers.Queue)
 	authRequired.Delete("/queue/:id", handlers.DeleteQueue)
+	authRequired.Post("/queue/:id/next", handlers.NextMember)
 	authRequired.Put("/queue/:id/members", handlers.JoinQueue)
 	authRequired.Delete("/queue/:id/members", handlers.LeaveQueue)
 
 	adminRequired := authRequired.Group("")
 	adminRequired.Use(auth.AdminRequired)
 
-	adminRequired.Post("/queue/:id/next", handlers.NextMember)
 	adminRequired.Delete("/queue/:queueID/member/:memberID", handlers.DeleteMember)
 	adminRequired.Post("/queue/:id/active", handlers.ActiveQueue)
 

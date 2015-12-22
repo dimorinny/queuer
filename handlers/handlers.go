@@ -95,7 +95,21 @@ func CreateQueue(c *echo.Context) error {
 }
 
 func NextMember(c *echo.Context) error {
-	//	id, _ := strconv.Atoi(c.Param("id"))
+	user := c.Get(auth.Config.IdentityKey).(database.User)
+	id, _ := strconv.Atoi(c.Param("id"))
+
+	// Crunch, because Update nobody return error
+	queue := database.Queue{}
+	if database.Db.Not("is_deleted", true).First(&queue, id).Select("id").Error != nil {
+		response.QueueNotFoundHandler(c)
+		return nil
+	}
+
+	if user.ID != queue.CreatorID && !user.IsSuperAdmin {
+//		response.QueueRemoveNotPermitted(c)
+		return nil
+	}
+
 	return nil
 }
 

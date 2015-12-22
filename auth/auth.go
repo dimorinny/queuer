@@ -104,6 +104,6 @@ func Register(c *echo.Context) error {
 	access, _ := Jwt.GenerateAccessToken(user.ID)
 	refresh, _ := Jwt.GenerateRefreshToken(user.ID)
 
-	response.LoginResponseHandler(c, access, refresh)
+	response.LoginResponseHandler(c, user.ID, access, refresh)
 	return nil
 }

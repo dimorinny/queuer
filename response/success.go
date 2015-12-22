@@ -22,14 +22,14 @@ func QueueResponse(c *echo.Context, queue interface{}) {
 	c.JSON(http.StatusOK, GenerateSuccessResponse(queue))
 }
 
-func LoginResponseHandler(c *echo.Context, accessToken string, refreshToken string) {
+func LoginResponseHandler(c *echo.Context, identity interface{}, accessToken string, refreshToken string) {
 	c.JSON(http.StatusOK, GenerateSuccessResponse(map[string]interface{}{
 		"AccessToken":  accessToken,
 		"RefreshToken": refreshToken,
 	}))
 }
 
-func RefreshResponseHandler(c *echo.Context, accessToken string, refreshToken string) {
+func RefreshResponseHandler(c *echo.Context, identity interface{}, accessToken string, refreshToken string) {
 	c.JSON(http.StatusOK, GenerateSuccessResponse(map[string]interface{}{
 		"AccessToken":  accessToken,
 		"RefreshToken": refreshToken,
